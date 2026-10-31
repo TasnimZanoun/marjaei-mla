@@ -52,7 +52,7 @@ function parts(s){return plain(s).split(";").map(x=>x.trim()).filter(Boolean);}
 function westernAuthor(name,reverse){if(arabic(name)||name.includes(",")||!reverse)return name;const p=name.trim().split(/\s+/);return p.length>1?p.slice(-1)[0]+", "+p.slice(0,-1).join(" "):name;}
 function familyName(name,explicit){if(explicit)return plain(explicit);if(name.includes("،"))return name.split("،")[0].trim();if(name.includes(","))return name.split(",")[0].trim();const words=plain(name).split(/\s+/);return words.length>1?words[words.length-1]:name;}
 function invertAuthor(name,kind,explicit){name=plain(name);if(kind==="organization")return name;if(!arabic(name))return westernAuthor(name,true);if(name.includes("،")||name.includes(","))return name;const family=familyName(name,explicit);if(!family||family===name)return name;const pos=name.lastIndexOf(family);if(pos<1)return name;const given=(name.slice(0,pos)+name.slice(pos+family.length)).trim();return given?family+"، "+given:name;}
-function authorWorks(raw,kind,explicit){const a=parts(raw);if(!a.length)return "";if(kind==="organization")return a[0];if(a.length===1)return invertAuthor(a[0],kind,explicit);if(a.length===2)return invertAuthor(a[0],kind,explicit)+(arabic(raw)?"، و":" and ")+a[1];return invertAuthor(a[0],kind,explicit)+", et al.";}
+function authorWorks(raw,kind,explicit){const a=parts(raw);if(!a.length)return "";if(kind==="organization")return a[0];if(a.length===1)return invertAuthor(a[0],kind,explicit);if(a.length===2)return invertAuthor(a[0],kind,explicit)+(arabic(raw)?"، و":", and ")+a[1];return invertAuthor(a[0],kind,explicit)+", et al.";}
 function authorText(raw,kind,explicit){const a=parts(raw);if(!a.length)return "";if(kind==="organization")return a[0];if(a.length===1)return familyName(a[0],explicit);if(a.length===2)return familyName(a[0],explicit)+(arabic(raw)?" و":" and ")+familyName(a[1]);return familyName(a[0],explicit)+" et al.";}
 function editionValue(raw,isArabic){const e=plain(raw);if(!e)return "";const digits=e.replace(/[٠-٩]/g,x=>String(x.charCodeAt(0)-1632));const m=digits.match(/^(?:الطبعة\s*)?(\d+)$/);if(!m)return e;const n=Number(m[1]);if(n===1)return "";const words={2:"الثانية",3:"الثالثة",4:"الرابعة",5:"الخامسة",6:"السادسة",7:"السابعة",8:"الثامنة",9:"التاسعة",10:"العاشرة"};if(isArabic)return "الطبعة "+(words[n]||n);const suffix=n%100>=11&&n%100<=13?"th":n%10===1?"st":n%10===2?"nd":n%10===3?"rd":"th";return n+suffix+" ed.";}
 function titleCase(s){return plain(s);}
@@ -65,7 +65,9 @@ function pages(s){s=plain(s);if(!s)return "";return /^pp?\.?\s/i.test(s)?s:(s.in
 function cap(s){return s? s.charAt(0).toUpperCase()+s.slice(1):s;}
 function segments(a){return a.filter(Boolean).join(", ")+ (a.filter(Boolean).length?".":"");}
 function build(d,t){
- const w=[],author=authorWorks(d.author,d.authorKind,d.surname),heading=d.title||d.container||"";
+ const w=[],heading=d.title||d.container||"";
+ const omitCorporateAuthor=d.authorKind==="organization"&&d.author&&d.publisher&&plain(d.author)===plain(d.publisher)&&["report","website","webpage"].includes(t);
+ const author=omitCorporateAuthor?"":authorWorks(d.author,d.authorKind,d.surname);
  if(!heading)return {error:"أدخل عنوان المصدر أولا."};
  const n=d.title?d.title:d.container;
  const independent=["book","report","thesis","image","translation"].includes(t);
@@ -79,6 +81,7 @@ function build(d,t){
  if(d.publisher&&/^(أمازون|amazon(?:\\.com)?|google books|كتب جوجل)$/i.test(plain(d.publisher)))w.push("قد تكون هذه منصة بيع أو توزيع وليست الناشر الفعلي. راجع صفحة العنوان أو حقوق النشر قبل اعتماد المرجع.");
  let arr=[];
  if(author)arr.push(esc(author));
+ else if(omitCorporateAuthor)w.push("عندما تكون الجهة هي المؤلف والناشر معا، يبدأ المرجع بالعنوان وتظهر الجهة في موضع الناشر.");
  else w.push("لم تدخل مؤلفا؛ سيبدأ المرجع بالعنوان. تأكد أن المصدر لا يذكر مؤلفا أو جهة مسؤولة.");
  if(t==="book"||t==="translation"){
    arr.push(titleMarkup);
@@ -112,7 +115,7 @@ function build(d,t){
    if(d.accessed)arr.push("Accessed "+esc(d.accessed));
  } else if(t==="report"){
    arr.push(ital(d.title));
-   if(d.publisher&&plain(d.publisher)!==plain(d.author))arr.push(esc(d.publisher));
+   if(d.publisher&&(omitCorporateAuthor||plain(d.publisher)!==plain(d.author)))arr.push(esc(d.publisher));
    if(publication)arr.push(esc(publication));
    if(location)arr.push(esc(location));
  } else if(t==="thesis"){
@@ -160,17 +163,17 @@ function build(d,t){
    const first=body.shift();
    const rest=body.filter(Boolean);
    const firstEnds=/[.!؟]$|[.!?؟]”$/.test(first)?first:first+".";
-   result=(author?esc(author)+". ":"")+firstEnds+(rest.length?" "+rest.join(", "):"");
+   result=(author?esc(author)+". ":"")+firstEnds+(rest.length?" "+rest.join(arabic(d.title)?"، ":", "):"");
    if(!/[.!؟]$|[.!?؟]”$/.test(result))result+=".";
  }
- const key=authorText(d.author,d.authorKind,d.surname)||heading;
+ const key=(omitCorporateAuthor?"":authorText(d.author,d.authorKind,d.surname))||heading;
  const locator=plain(d.page)||plain(d.timestamp);
  let intext=key;
  if(!author&&d.title){const short=plain(d.title).split(/\s+/).slice(0,5).join(" ");intext=(independent?short:"“"+short+"”");}
  if(locator)intext+=" "+locator;
  else if(["book","translation","chapter","journal","report","thesis","news"].includes(t))w.push("إذا كان الاستشهاد بمقطع ذي رقم صفحة، أدخل رقم الصفحة الفعلي داخل المتن.");
- if(!d.author&&t!=="interview")w.push("عند غياب المؤلف، يبدأ الاستشهاد بالعنوان المختصر الموافق لبداية مدخل القائمة.");
- w.push("راجع الكتابة الكبيرة والصغيرة لعناوين المصادر الإنجليزية؛ لا يغيرها هذا النموذج تلقائيا.");
+ if((!d.author||omitCorporateAuthor)&&t!=="interview")w.push("عند البدء بالعنوان في قائمة المراجع، يبدأ التوثيق داخل المتن بالعنوان أو مختصره.");
+ if(!arabic(d.title))w.push("راجع الكتابة الكبيرة والصغيرة لعناوين المصادر الإنجليزية؛ لا يغيرها هذا النموذج تلقائيا.");
  return {works:result,intext:"("+intext+")",warnings:[...new Set(w)],explanation:locator?"تم إنشاء الاستشهاد باستخدام اسم المؤلف أو العنوان ورقم الصفحة/الموضع الذي أدخلته.":"في MLA يرتبط الاستشهاد داخل المتن باسم المؤلف أو العنوان إذا غاب المؤلف، ولا يضاف تاريخ النشر تلقائيا."};
 }
 function stripHtml(s){const e=document.createElement("div");e.innerHTML=s;return e.textContent||"";}
