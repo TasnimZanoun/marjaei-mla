@@ -49,12 +49,12 @@ const arabic=s=>/[\u0600-\u06ff]/.test(s||"");
 function esc(s){return String(s||"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");}
 function plain(s){return String(s||"").trim().replace(/\s+/g," ");}
 function parts(s){return plain(s).split(";").map(x=>x.trim()).filter(Boolean);}
-function westernAuthor(name,reverse){if(arabic(name)||name.includes(",")||!reverse)return name;const p=name.trim().split(/\\s+/);return p.length>1?p.slice(-1)[0]+", "+p.slice(0,-1).join(" "):name;}
-function familyName(name,explicit){if(explicit)return plain(explicit);if(name.includes("،"))return name.split("،")[0].trim();if(name.includes(","))return name.split(",")[0].trim();const words=plain(name).split(/\\s+/);return words.length>1?words[words.length-1]:name;}
+function westernAuthor(name,reverse){if(arabic(name)||name.includes(",")||!reverse)return name;const p=name.trim().split(/\s+/);return p.length>1?p.slice(-1)[0]+", "+p.slice(0,-1).join(" "):name;}
+function familyName(name,explicit){if(explicit)return plain(explicit);if(name.includes("،"))return name.split("،")[0].trim();if(name.includes(","))return name.split(",")[0].trim();const words=plain(name).split(/\s+/);return words.length>1?words[words.length-1]:name;}
 function invertAuthor(name,kind,explicit){name=plain(name);if(kind==="organization")return name;if(!arabic(name))return westernAuthor(name,true);if(name.includes("،")||name.includes(","))return name;const family=familyName(name,explicit);if(!family||family===name)return name;const pos=name.lastIndexOf(family);if(pos<1)return name;const given=(name.slice(0,pos)+name.slice(pos+family.length)).trim();return given?family+"، "+given:name;}
 function authorWorks(raw,kind,explicit){const a=parts(raw);if(!a.length)return "";if(kind==="organization")return a[0];if(a.length===1)return invertAuthor(a[0],kind,explicit);if(a.length===2)return invertAuthor(a[0],kind,explicit)+(arabic(raw)?"، و":" and ")+a[1];return invertAuthor(a[0],kind,explicit)+", et al.";}
 function authorText(raw,kind,explicit){const a=parts(raw);if(!a.length)return "";if(kind==="organization")return a[0];if(a.length===1)return familyName(a[0],explicit);if(a.length===2)return familyName(a[0],explicit)+(arabic(raw)?" و":" and ")+familyName(a[1]);return familyName(a[0],explicit)+" et al.";}
-function editionValue(raw,isArabic){const e=plain(raw);if(!e)return "";const digits=e.replace(/[٠-٩]/g,x=>String(x.charCodeAt(0)-1632));const m=digits.match(/^(?:الطبعة\\s*)?(\\d+)$/);if(!m)return e;const n=Number(m[1]);if(n===1)return "";const words={2:"الثانية",3:"الثالثة",4:"الرابعة",5:"الخامسة",6:"السادسة",7:"السابعة",8:"الثامنة",9:"التاسعة",10:"العاشرة"};if(isArabic)return "الطبعة "+(words[n]||n);const suffix=n%100>=11&&n%100<=13?"th":n%10===1?"st":n%10===2?"nd":n%10===3?"rd":"th";return n+suffix+" ed.";}
+function editionValue(raw,isArabic){const e=plain(raw);if(!e)return "";const digits=e.replace(/[٠-٩]/g,x=>String(x.charCodeAt(0)-1632));const m=digits.match(/^(?:الطبعة\s*)?(\d+)$/);if(!m)return e;const n=Number(m[1]);if(n===1)return "";const words={2:"الثانية",3:"الثالثة",4:"الرابعة",5:"الخامسة",6:"السادسة",7:"السابعة",8:"الثامنة",9:"التاسعة",10:"العاشرة"};if(isArabic)return "الطبعة "+(words[n]||n);const suffix=n%100>=11&&n%100<=13?"th":n%10===1?"st":n%10===2?"nd":n%10===3?"rd":"th";return n+suffix+" ed.";}
 function titleCase(s){return plain(s);}
 function ital(s){return "<em>"+esc(s)+"</em>";}
 function quote(s){const q=plain(s);return "“"+esc(/[.!?؟]$/.test(q)?q:q+".")+"”";}
@@ -73,9 +73,9 @@ function build(d,t){
  const embeddedPage=["journal","chapter","news"].includes(t)?pages(d.pages):"";
  const location=doiLink(d.doi)||normalUrl(d.url);
  const publication=d.date||d.year;
- if(d.authorKind!=="organization"&&arabic(d.author)&&parts(d.author).length===1&&plain(d.author).split(/\\s+/).length>1&&!d.surname)w.push("تم تقدير اسم العائلة من الكلمة الأخيرة؛ راجعه، خاصة إذا كان اسم العائلة مركبا.");
+ if(d.authorKind!=="organization"&&arabic(d.author)&&parts(d.author).length===1&&plain(d.author).split(/\s+/).length>1&&!d.surname)w.push("تم تقدير اسم العائلة من الكلمة الأخيرة؛ راجعه، خاصة إذا كان اسم العائلة مركبا.");
  if(d.authorKind==="organization"&&parts(d.author).length>1)w.push("الجهة المؤسسية يجب إدخالها كاسم واحد دون فصل مؤلفين بعلامة ;.");
- if(d.edition&&/^1$|^١$|^الطبعة\\s*(الأولى|1|١)$/.test(plain(d.edition)))w.push("حذفت الطبعة الأولى من المرجع لأنها لا تذكر عادة في MLA؛ تحقق من وجود إصدار مميز.");
+ if(d.edition&&/^1$|^١$|^الطبعة\s*(الأولى|1|١)$/.test(plain(d.edition)))w.push("حذفت الطبعة الأولى من المرجع لأنها لا تذكر عادة في MLA؛ تحقق من وجود إصدار مميز.");
  if(d.publisher&&/^(أمازون|amazon(?:\\.com)?|google books|كتب جوجل)$/i.test(plain(d.publisher)))w.push("قد تكون هذه منصة بيع أو توزيع وليست الناشر الفعلي. راجع صفحة العنوان أو حقوق النشر قبل اعتماد المرجع.");
  let arr=[];
  if(author)arr.push(esc(author));
