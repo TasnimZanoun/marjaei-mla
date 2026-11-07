@@ -1,104 +1,272 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#657d59">
-  <meta name="description" content="مرجعي: مساعد مجاني باللغة العربية لتنسيق الاستشهادات والمراجع وفق MLA 9.">
-  <title>مرجعي | مساعد توثيق MLA 9</title>
-  <link rel="stylesheet" href="./styles.css">
-  <script defer src="./app.js"></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
-  <header class="topbar">
-    <div class="container nav">
-      <a class="brand" href="#top" aria-label="مرجعي، الصفحة الرئيسية">
-        <span class="brandmark" aria-hidden="true">
-          <svg viewBox="0 0 48 48" fill="none"><path d="M24 10C17 6 10 7 5 10v26c7-4 14-4 19 1V10Z" fill="#E9EBD8" stroke="#607855" stroke-width="2"/><path d="M24 10c7-4 14-3 19 0v26c-7-4-14-4-19 1V10Z" fill="#B7C79C" stroke="#607855" stroke-width="2"/><path d="M24 12v25" stroke="#607855" stroke-width="2"/><path d="m13 18 5 4 8-11" stroke="#9A7D42" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <span><strong>مرجعي</strong><small>مساعد التوثيق الأكاديمي</small></span>
-      </a>
-      <nav class="navlinks" aria-label="التنقل">
-        <a href="#builder">وثق مصدرك</a>
-        <a href="#library">مكتبتي</a>
-        <a href="#guide">دليل الاستخدام</a>
-      </nav>
-      <span class="version">MLA <strong>9</strong></span>
-    </div>
-  </header>
-
-  <main id="main">
-    <section class="hero container" id="top">
-      <div class="hero-copy">
-        <span class="eyebrow"><span class="dot"></span> أداة تعليمية مجانية للمعلمين الطلبة</span>
-        <h1>كل مرجع، <em>في مكانه الصحيح.</em></h1>
-        <p>وثق مصادرك العربية والأجنبية، واحصل على توثيق داخل المتن وفي قائمة الأعمال المستشهد بها، مع تفسير القواعد والتنبيه إلى المعلومات الناقصة.</p>
-        <div class="hero-actions">
-          <a class="btn primary" href="#builder">ابدأ التوثيق <span aria-hidden="true">↙</span></a>
-          <a class="btn ghost" href="#guide">كيف يعمل؟</a>
-        </div>
-        <div class="trust"><span>✓ دون تسجيل حساب</span><span>✓ يعمل على الهاتف</span><span>✓ لا يحتاج اشتراكا مدفوعا</span></div>
-      </div>
-      <aside class="hero-art" aria-hidden="true">
-        <span class="corner-star star-one">✦</span><span class="corner-star star-two">✧</span>
-        <div class="book-card"><div class="book-tag">WORKS CITED</div><div class="book-line long"></div><div class="book-line"></div><div class="book-line medium"></div><div class="citation-demo">Author. <i>Title.</i> Publisher, Year.</div><div class="book-seal">MLA 9</div></div>
-        <span class="art-quote">«التوثيق الدقيق امتداد للأمانة العلمية»</span>
-      </aside>
-    </section>
-
-    <section class="workspace-section" id="builder">
-      <div class="container">
-        <div class="section-heading"><div><span class="section-kicker">مساحة العمل</span><h2>أنشئ توثيقك الآن</h2><p>اختر نوع المصدر، وأدخل البيانات المتاحة، وسنرتبها وفق النموذج المناسب.</p></div><span class="step-pill">01 / وثق المصدر</span></div>
-        <div class="workspace">
-          <section class="panel editor-panel" aria-labelledby="form-heading">
-            <div class="panel-heading"><div><span class="panel-icon">✎</span><h3 id="form-heading">بيانات المصدر</h3></div><button class="text-button" id="exampleBtn" type="button">تجربة مثال جاهز</button></div>
-            <label class="field-label" for="sourceType">نوع المصدر</label>
-            <select id="sourceType" class="input"></select>
-            <div class="field-hint">يمكنك تغيير النوع في أي وقت. لا تملأ إلا البيانات التي تتأكد منها.</div>
-            <form id="citationForm" novalidate>
-              <div id="dynamicFields" class="fields"></div>
-              <div class="form-actions"><button class="btn primary wide" type="submit">إنشاء التوثيق <span aria-hidden="true">←</span></button><button class="btn subtle" id="resetBtn" type="button">مسح الحقول</button></div>
-            </form>
-          </section>
-
-          <section class="panel results-panel" aria-labelledby="results-heading">
-            <div class="panel-heading"><div><span class="panel-icon">❝</span><h3 id="results-heading">نتيجة التوثيق</h3></div><span class="result-pill" id="resultState">في انتظار بياناتك</span></div>
-            <div id="emptyResults" class="empty-results"><div class="empty-symbol">“ ”</div><h4>مرجعك على وشك الاكتمال</h4><p>أدخل معلومات المصدر واضغط «إنشاء التوثيق» لتظهر النتيجة هنا.</p></div>
-            <div id="resultsContent" hidden>
-              <div class="result-block"><div class="result-header"><h4>في قائمة الأعمال المستشهد بها <span>Works Cited</span></h4><button class="mini-btn" type="button" id="copyWorks">نسخ</button></div><div class="citation-text" dir="auto" id="worksOutput"></div></div>
-              <div class="result-block"><div class="result-header"><h4>داخل المتن <span>In-text citation</span></h4><button class="mini-btn" type="button" id="copyIntext">نسخ</button></div><div class="citation-text short" dir="auto" id="intextOutput"></div></div>
-              <div id="warningsBox" class="warnings" hidden><strong>قبل اعتماد المرجع</strong><ul id="warningsList"></ul></div>
-              <div class="tip"><span aria-hidden="true">✦</span><p id="explanation"></p></div>
-              <div class="output-actions"><button id="saveBtn" class="btn secondary" type="button">＋ احفظ في مكتبتي</button><button id="copyBoth" class="btn subtle" type="button">نسخ النتيجتين</button></div>
-              <p class="quality-note">النتيجة مبنية على البيانات المدخلة، ولا تعني التحقق من صحة المصدر نفسه.</p>
-            </div>
-          </section>
-        </div>
-      </div>
-    </section>
-
-    <section class="container library-section" id="library">
-      <div class="section-heading"><div><span class="section-kicker">مساحتك الشخصية</span><h2>مكتبتي البحثية</h2><p>احفظ المراجع التي أنشأتها ورتبها للتصدير. تحفظ بياناتك في هذا المتصفح فقط.</p></div><span class="step-pill">02 / اجمع المراجع</span></div>
-      <div class="library-panel">
-        <div class="library-top"><div class="library-count"><span class="count-icon">▤</span><strong id="libraryCount">0</strong><span>مرجع محفوظ</span></div><div class="library-actions"><button id="exportBtn" class="btn secondary small" type="button">تصدير إلى Word</button><button id="copyLibrary" class="btn subtle small" type="button">نسخ المراجع</button><button id="clearLibrary" class="btn text-danger small" type="button">حذف الكل</button></div></div>
-        <div id="libraryEmpty" class="library-empty">لا توجد مراجع محفوظة بعد. أنشئ توثيقا واحفظه ليظهر هنا.</div>
-        <div id="libraryItems" class="library-items" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <section class="guide-section" id="guide">
-      <div class="container"><div class="section-heading"><div><span class="section-kicker">تعلم أثناء العمل</span><h2>دليل سريع للتوثيق</h2><p>ثلاث قواعد أساسية تساعدك على قراءة المرجع وفهمه.</p></div><span class="step-pill">03 / تعلم القواعد</span></div>
-        <div class="guide-grid">
-          <article class="guide-card"><div class="guide-number">01</div><h3>داخل المتن: مؤلف وموضع</h3><p>غالبا نكتب اسم عائلة المؤلف ورقم الصفحة إن كانت موجودة. لا نضيف سنة النشر تلقائيا كما في APA.</p><div class="inline-example" dir="ltr">(Mantel 42)</div></article>
-          <article class="guide-card"><div class="guide-number">02</div><h3>عنوان المصدر والحاوية</h3><p>يوضع عنوان الكتاب المستقل مائلا، بينما يوضع عنوان المقال بين علامتي اقتباس، ثم يأتي اسم المجلة أو الموقع.</p><div class="inline-example" dir="ltr">“Article.” <i>Journal Title</i></div></article>
-          <article class="guide-card"><div class="guide-number">03</div><h3>البيانات الناقصة لا نخترعها</h3><p>عند غياب التاريخ أو المؤلف نراجع المصدر الأصلي، وقد نحذف العنصر غير المتوفر بدلا من اختراع سنة أو اسم.</p><div class="inline-example">تحقق ← وثق ← راجع</div></article>
-        </div>
-        <div class="guide-source"><span>المعيار المعتمد: <strong>MLA Handbook, 9th edition</strong></span><a href="https://style.mla.org/works-cited/citations-by-format/" target="_blank" rel="noopener noreferrer">الاطلاع على الأمثلة الرسمية ↗</a></div>
-      </div>
-    </section>
-  </main>
-  <footer class="footer"><div class="container footer-content"><div class="brand footer-brand"><span class="brandmark mini" aria-hidden="true">✦</span><span><strong>مرجعي</strong><small>التوثيق خطوة نحو بحث موثوق</small></span></div><p>أداة تعليمية مستقلة تستند إلى إرشادات MLA 9. ليست بديلا عن مراجعة المصدر الأصلي أو متطلبات مؤسستك.</p><span>صنع لتمكين المعلمين الطلبة 🌿</span></div></footer>
-  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-</body>
-</html>
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><title>مرجع | مولد وفاحص MLA 9</title><style>:root{--ink:#273c30;--soft:#5a685b;--bg:#f6f9ed;--cream:#fffef9;--line:#dbe5c9;--lime:#d8e8b1;--lime2:#eef5dd;--green:#527748;--red:#b95b50;--red-pale:#fff3ef;--gold:#ae8450;--gold-pale:#fff9eb}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.85 'Segoe UI',Tahoma,Arial,sans-serif}
+button,input,textarea,select{font:inherit}
+a{color:#3f7050;text-underline-offset:3px}
+button{cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #b7cb8d;outline-offset:2px}
+.wrap{max-width:1180px;margin:auto;padding:20px 22px 55px}
+.hero{background:linear-gradient(130deg,#d9e8b9,#e4f0c9 65%,#f6f9ea);border:1px solid #c4d8a4;border-radius:26px;position:relative;overflow:hidden;padding:39px 39px 34px;margin-bottom:22px}
+.hero:before{content:'';position:absolute;top:0;left:0;right:0;height:140px;opacity:.52;background-image:radial-gradient(#a9c56b 2.3px,transparent 2.9px),radial-gradient(#a9c56b 2px,transparent 2.6px);background-size:24px 24px,24px 24px;background-position:0 0,10px 11px;mask-image:linear-gradient(#000,transparent)}
+.hero>*{position:relative}
+.eyebrow{font-weight:700;color:var(--red);font-size:13px;letter-spacing:.1px}
+h1{font-size:clamp(26px,4vw,39px);line-height:1.4;color:#315136;margin:12px 0 10px}
+h2{font-size:23px;line-height:1.5;margin:0 0 12px;color:#36553a}
+h3{font-size:18px;margin:0 0 11px;color:#436046}
+.hero p{font-size:15px;max-width:760px;margin:0;color:#4f624b}
+.badgelist{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.softbadge{display:inline-block;background:#fffcf6bd;border:1px solid #c7dbab;padding:5px 12px;border-radius:50px;font-size:12px;color:#486544;font-weight:600}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tab{border:1px solid var(--line);background:#fff;color:#4e6750;padding:12px 20px;border-radius:12px;font-weight:700}
+.tab[aria-selected=true]{background:#416a44;color:#fff;border-color:#416a44}
+.panel{background:#fff;border-radius:20px;border:1px solid #dde7d0;box-shadow:0 8px 30px #4464370b;padding:26px;margin-bottom:18px}
+.panellead{color:var(--soft);margin:0 0 20px}
+.two{display:grid;grid-template-columns:1.13fr .87fr;gap:20px;align-items:start}
+.mini{font-size:12px;color:#6b776a}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px 15px}
+.span2{grid-column:1/-1}
+.field label{display:block;font-weight:700;font-size:13px;margin:0 0 5px;color:#3b5140}
+.field input,.field select,.field textarea,textarea.large{width:100%;padding:11px 12px;border:1px solid #cbd8bf;border-radius:10px;background:#fefffb;min-height:45px;color:#2b4131;outline:none}
+.field input:focus,.field select:focus,.field textarea:focus,textarea.large:focus{border-color:#729d62;box-shadow:0 0 0 3px #a7c28a30}
+.field textarea{resize:vertical;min-height:70px}
+input[dir=ltr],textarea[dir=ltr]{text-align:left}
+.subtle{background:#f4f8ea;border:1px solid #e2ebd2;border-radius:14px;padding:15px 17px;margin:15px 0}
+.notice{border-right:4px solid #87a963;background:#f0f6e7;padding:11px 15px;border-radius:9px;margin:12px 0;color:#456048;font-size:13px}
+.warn{border-right-color:#d7a152;background:#fff9ef;color:#6d592f}
+.error{border-right-color:#c26c5c;background:#fff3ef;color:#86483d}
+.tip{margin-top:8px;color:#657766;font-size:12px}
+.btnrow{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.btn{border:1px solid #345c39;background:#406b46;color:white;border-radius:11px;padding:10px 18px;font-weight:700;min-height:42px}
+.btn.secondary{color:#416346;background:#eef4e6;border-color:#d2e2c7}
+.btn.outline{color:#446646;background:white;border-color:#b7cdb3}
+.btn.danger{background:#ad5a4e;border-color:#ad5a4e}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.resultbox{background:#fafcf6;border:1px solid #dce9cb;padding:18px;border-radius:14px;min-height:120px;overflow-wrap:anywhere}
+.resultbox p{margin:0 0 7px}
+.citation{font-family:Georgia,'Times New Roman',Tahoma,serif;font-size:17px;line-height:1.8;white-space:normal;overflow-wrap:anywhere}
+.citation em{font-style:italic}
+[dir=rtl].citation{font-family:Tahoma,'Segoe UI',serif}
+.kicker{font-weight:700;color:#6c805f;font-size:12px;margin:8px 0 7px}
+.issue{border-bottom:1px solid #e5ebd9;padding:11px 0}
+.issue:last-child{border-bottom:0}
+.issue strong{display:block;font-size:14px}
+.issue small{display:block;color:#647267}
+.state{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;background:#e3efda;color:#35653e}
+.state.warning{background:#fff1db;color:#875e32}
+.state.alert{background:#ffebe5;color:#9a493c}
+.sectionhead{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:0 0 16px}
+.help{background:#fbfbf5;border:1px solid #e3e8d8;border-radius:12px;padding:13px;font-size:13px;color:#506451}
+.muted{color:#7c877a}
+.entry{padding:16px;border:1px solid #e1e8d5;border-radius:13px;margin:12px 0;overflow-wrap:anywhere}
+.entry header{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.entry .citation{margin:12px 0 6px;font-size:16px}
+.entry .btnrow{margin:8px 0 0}
+.output-pair{display:grid;grid-template-columns:1fr;gap:13px}
+.checklist{margin:0;padding-right:19px}
+.checklist li{margin:5px 0}
+.number{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;width:30px;height:30px;background:#eaf2db;color:#4c7045;font-weight:700;margin-left:5px}
+hr{border:0;border-top:1px solid #e3ead8;margin:20px 0}
+.footer{text-align:center;font-size:12px;color:#6a7a6d;margin:25px 0}
+.visually-hidden{position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;overflow:hidden}
+.hidden{display:none!important}
+@media(max-width:850px){.two{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.wrap{padding:11px 11px 42px}.hero{padding:29px 18px}.panel{padding:17px}.formgrid{grid-template-columns:1fr}.tab{flex:1 1 auto}.btnrow .btn{flex:1 1 auto}}
+@media print{body{background:#fff}.noprint,.hero,.topnav,.footer{display:none!important}.wrap{padding:0;max-width:none}.panel{box-shadow:none;border:none}.entry{break-inside:avoid;border:none;padding:0}.citation{padding-left:1.2cm;text-indent:-1.2cm}@page{size:A4;margin:2cm}}
+</style></head><body>
+<div class="wrap">
+<header class="hero"><div class="eyebrow">أداة تعليمية للبحث الاستقصائي · MLA 9</div><h1>مرجع | أنشئ التوثيق وافحصه</h1><p>من بيانات المصدر إلى توثيق داخل النص وقائمة مراجع منسقة، مع فحص الأخطاء الشائعة واقتراح التصحيح. المصادر العربية بالعربية، والمصادر الإنجليزية بالإنجليزية، والأرقام 0–9 للجميع.</p><div class="badgelist"><span class="softbadge">مجاني بالكامل</span><span class="softbadge">لا يتطلب تسجيل دخول</span><span class="softbadge">يحفظ المراجع على جهازك</span><span class="softbadge">دون رفع بياناتك لخادم</span></div></header>
+<nav class="topnav noprint" role="tablist" aria-label="أقسام الأداة"><button class="tab" id="tab-create" data-tab="create" role="tab" aria-selected="true">إنشاء توثيق</button><button class="tab" id="tab-check" data-tab="check" role="tab" aria-selected="false">فحص توثيق وتصحيحه</button><button class="tab" id="tab-list" data-tab="list" role="tab" aria-selected="false">قائمة مراجعي <span id="count">(0)</span></button><button class="tab" id="tab-guide" data-tab="guide" role="tab" aria-selected="false">دليل مختصر</button></nav>
+<section id="view-create" class="view"><div class="two"><div class="panel"><div class="sectionhead"><h2><span class="number">1</span> بيانات المصدر</h2><span class="mini">املأ المتاح من بيانات مصدرك الحقيقي</span></div><div class="formgrid"><div class="field"><label for="language">لغة المصدر</label><select id="language"><option value="ar">العربية</option><option value="en">الإنجليزية</option></select></div><div class="field"><label for="type">نوع المصدر</label><select id="type"><option value="book">كتاب ورقي أو إلكتروني</option><option value="journal">مقال في مجلة علمية</option><option value="web">صفحة في موقع إلكتروني</option><option value="chapter">فصل في كتاب محرر</option><option value="report">تقرير أو دليل مؤسسي</option><option value="thesis">رسالة جامعية أو أطروحة</option><option value="newspaper">مقال صحفي</option><option value="video">فيديو أو مادة مرئية</option><option value="lecture">محاضرة أو ورقة مؤتمر</option></select></div><div class="field span2"><label for="authorMode">حالة التأليف</label><select id="authorMode"><option value="one">مؤلف واحد</option><option value="two">مؤلفان</option><option value="many">3 مؤلفين فأكثر</option><option value="org">مؤلف مؤسسي (وزارة، أكاديمية، مؤسسة)</option><option value="none">لا يوجد مؤلف معروف</option></select><div class="tip" id="authorHint">اكتب اسم العائلة والاسم الأول في حقلين مستقلين.</div></div>
+<div class="field" data-author="person"><label for="last1">اسم عائلة المؤلف الأول</label><input id="last1" placeholder="مثال: العلي"></div><div class="field" data-author="person"><label for="first1">الاسم الأول وبقية الاسم</label><input id="first1" placeholder="مثال: أحمد محمد"></div>
+<div class="field" data-author="second"><label for="first2">الاسم الأول للمؤلف الثاني</label><input id="first2"></div><div class="field" data-author="second"><label for="last2">اسم عائلة المؤلف الثاني</label><input id="last2"></div>
+<div class="field span2 hidden" data-author="org"><label for="org">اسم المؤسسة المؤلفة</label><input id="org" placeholder="مثال: وزارة التربية والتعليم"></div>
+<div id="dynamicFields" class="span2 formgrid"></div>
+</div><div class="btnrow"><button id="generate" class="btn">إنشاء التوثيق</button><button id="clearForm" class="btn secondary">تفريغ الحقول</button></div><div class="tip">لن ينشئ المولد بيانات غير موجودة. الحقول التي يتركها المعلم فارغة تظهر كملاحظات لاستكمالها عند الحاجة.</div></div>
+<div class="panel"><h2><span class="number">2</span> نتيجة التوثيق</h2><p class="panellead">سيظهر المرجع منسقا، والتوثيق داخل النص، والملاحظات التي يلزم الانتباه إليها.</p><div class="kicker">المرجع في قائمة المراجع</div><div id="refOutput" class="resultbox citation" aria-live="polite">أدخل بيانات المصدر واضغط «إنشاء التوثيق».</div><div class="btnrow"><button id="copyRef" class="btn secondary" disabled>نسخ المرجع منسقا</button><button id="copyRefText" class="btn outline" disabled>نسخ كنص</button></div><div class="kicker" style="margin-top:20px">الاستشهاد داخل النص</div><div id="inlineOutput" class="resultbox citation" aria-live="polite">—</div><div class="field" style="margin-top:10px"><label for="citedPage">رقم صفحة الاقتباس أو الفكرة (إن وجد)</label><input id="citedPage" inputmode="text" placeholder="مثال: 45 أو 45-47"><div class="tip">لا تضاف سنة النشر في توثيق MLA داخل النص. إذا ورد اسم المؤلف في الجملة، يمكن الاكتفاء برقم الصفحة بين القوسين.</div></div><div class="btnrow"><button id="copyInline" class="btn secondary" disabled>نسخ الاستشهاد</button><button id="addEntry" class="btn" disabled>إضافة إلى قائمة المراجع</button></div><div id="genIssues" class="notice hidden"></div></div></div></section>
+<section id="view-check" class="view hidden"><div class="two"><div class="panel"><h2>فحص التوثيق وتصحيحه</h2><p class="panellead">الصق مرجعا من قائمة المراجع أو استشهادا داخل النص. تفحص الأداة البنية الظاهرة وتعرض تصحيحا شكليا عند الإمكان، دون اختراع بيانات غير موجودة.</p><div class="formgrid"><div class="field"><label for="checkKind">ماذا تفحص؟</label><select id="checkKind"><option value="reference">مرجع في قائمة المراجع</option><option value="inline">استشهاد داخل النص</option></select></div><div class="field"><label for="checkLang">لغة المرجع</label><select id="checkLang"><option value="ar">العربية</option><option value="en">الإنجليزية</option></select></div><div class="field span2" id="checkTypeWrap"><label for="checkType">نوع المصدر</label><select id="checkType"><option value="book">كتاب</option><option value="journal">مقال علمي</option><option value="web">صفحة ويب</option><option value="chapter">فصل في كتاب</option><option value="report">تقرير أو دليل</option><option value="thesis">رسالة جامعية</option><option value="newspaper">مقال صحفي</option><option value="video">فيديو</option><option value="lecture">محاضرة أو مؤتمر</option></select></div><div class="field span2"><label for="checkText">التوثيق الذي تريد فحصه</label><textarea id="checkText" rows="6" placeholder="الصق المرجع أو الاستشهاد هنا..."></textarea></div><div class="field span2" id="compareWrap"><label for="compareId">اختياري: المقارنة بمرجع أنشأته سابقا</label><select id="compareId"><option value="">فحص شكلي عام دون مرجع مقارن</option></select><div class="tip">المقارنة ببيانات أصلية مدخلة في قسم الإنشاء تجعل التصحيح أدق.</div></div></div><div class="btnrow"><button id="runCheck" class="btn">افحص التوثيق</button><button id="loadCheckExample" class="btn secondary">عرض مثال فيه أخطاء</button></div></div><div class="panel"><h2>نتيجة الفحص</h2><div id="checkStatus" class="notice">أدخل التوثيق لعرض النتيجة.</div><div id="issuesBox"></div><div class="kicker" style="margin-top:18px">التصحيح المقترح</div><div id="corrected" class="resultbox citation">—</div><div class="btnrow"><button class="btn secondary" id="copyCorrection" disabled>نسخ التصحيح</button></div><div class="notice warn" style="margin-top:20px">الفحص آلي وقائم على قواعد واضحة، وليس تدقيقا لمصدر المنشور نفسه. عند عدم توفر اسم المؤلف أو البيانات الدقيقة أو تنسيق الخط الأصلي، قد يلزم الرجوع للمصدر أو مراجعة بشرية.</div></div></div></section>
+<section id="view-list" class="view hidden"><div class="panel"><div class="sectionhead"><div><h2>قائمة المراجع التي أنشأتها</h2><p class="panellead">تُحفظ محليا في المتصفح على هذا الجهاز. يمكن تعديلها ونسخها وتصديرها.</p></div><div class="btnrow" style="margin:0"><button class="btn secondary" id="copyAll">نسخ قائمة المراجع</button><button class="btn outline" id="downloadDoc">تنزيل ملف Word</button><button class="btn outline" id="printList">طباعة / PDF</button></div></div><div class="notice">تُرتب المراجع العربية هجائيا فيما بينها، والإنجليزية هجائيا فيما بينها. راجع متطلبات الأكاديمية بشأن ترتيب القائمتين عند دمجهما في بحث واحد.</div><div id="listOutput"></div></div></section>
+<section id="view-guide" class="view hidden"><div class="panel"><h2>كيف تستخدم الأداة؟</h2><div class="formgrid"><div class="subtle"><h3>إنشاء التوثيق</h3><p>اختر لغة المصدر ونوعه، ثم أدخل بياناته كما تظهر في المصدر، وحدد صفحة الاستشهاد عند الحاجة. انسخ المرجع منسقا وأضفه لقائمتك.</p></div><div class="subtle"><h3>فحص التوثيق</h3><p>الصق مرجعا أو استشهادا، وحدد نوعه ولغته، ثم اقرأ الأخطاء والتصحيح. المقارنة بمرجع محفوظ تمنح نتيجة أدق من فحص النص وحده.</p></div><div class="subtle"><h3>ضبط العربية والأرقام</h3><p>المصادر العربية بالعربية والإنجليزية بالإنجليزية. تحول الأرقام العربية الشرقية تلقائيا إلى 0–9. لا تحوِّل الأداة أسماء المؤلفين إلى حروف لاتينية.</p></div><div class="subtle"><h3>حالات تحتاج مراجعة</h3><p>نقص المؤلف أو تاريخ النشر أو أرقام الصفحات، وتفاصيل الأسماء المركبة أو المراجع متعددة الحاويات، وكذلك التحقق من صحة DOI/URL ومطابقة النص الأصلي.</p></div></div><hr><h3>أمثلة توضيحية افتراضية</h3><p>كتاب عربي: العلي، أحمد. <em>استراتيجيات التدريس الحديثة</em>. دار المعرفة، 2022. <span class="muted">(العلي 45)</span></p><p dir="ltr" style="text-align:left">English book: Brown, James. <em>Modern Teaching Strategies</em>. Oxford University Press, 2022. <span class="muted">(Brown 45)</span></p><div class="notice warn">الأمثلة للتقريب ولا تمثل مصادر محققة. يعمل المولد وفق القواعد العامة لـ MLA 9 مع سياسة اللغة والأرقام التي حُددت للتدريب، ولا يعد بديلا عن مراجعة المصدر الأصلي.</div><h3>مرجع التحقق</h3><p><a href="https://style.mla.org/works-cited/works-cited-a-quick-guide/" target="_blank" rel="noopener">MLA Style Center — Works Cited: A Quick Guide</a>، <a href="https://style.mla.org/works-cited/citations-by-format/online-works/" target="_blank" rel="noopener">كيفية توثيق المصادر الإلكترونية</a>، بالإضافة إلى دليل التوثيق المرفق من الأكاديمية وتصحيحاته.</p></div></section>
+<div class="footer">أداة تعليمية مستقلة مستوحاة من الألوان الفاتحة لهوية الأكاديمية — لا تستخدم شعارا رسميا، ولا تدعي اعتمادا رسميا من MLA أو الأكاديمية.</div></div>
+<script>'use strict';
+const $=id=>document.getElementById(id);
+const asText=s=>String(s??'').trim();
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const western=s=>String(s??'').replace(/[٠-٩]/g,d=>String('٠١٢٣٤٥٦٧٨٩'.indexOf(d))).replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+const clean=s=>western(asText(s)).replace(/\s+/g,' ');
+const end=s=>/[.!?؟]$/.test(s)?s:s+'.';
+const stripEnd=s=>s.replace(/[.!؟?]+$/,'').trim();
+const htmlText=s=>{const node=document.createElement('div');node.innerHTML=s;return node.textContent||''};
+const qtitle=s=>{s=clean(s);return `“${esc(/[؟?!]$/.test(s)?s:stripEnd(s)+'.')}”`};
+const italic=s=>`<em>${esc(stripEnd(s))}</em>`;
+const nameList={ar:{book:'كتاب',journal:'مقال في مجلة',web:'صفحة ويب',chapter:'فصل كتاب',report:'تقرير',thesis:'رسالة جامعية',newspaper:'مقال صحفي',video:'فيديو',lecture:'محاضرة'},en:{}};
+const layout={
+book:[['title','عنوان الكتاب',1],['publisher','دار النشر أو الناشر',0],['year','سنة النشر',0],['edition','رقم الطبعة إن وجد',0],['translator','اسم المترجم إن وجد',0],['database','اسم قاعدة البيانات إن كانت نسخة إلكترونية',0],['url','الرابط أو DOI للنسخة الإلكترونية',0]],
+journal:[['title','عنوان المقال العلمي',1],['container','اسم المجلة العلمية',1],['volume','رقم المجلد',0],['issue','رقم العدد',0],['year','سنة النشر',0],['pages','مدى صفحات المقال (مثال: 22-45)',0],['database','اسم قاعدة البيانات إن وجد',0],['url','DOI أو رابط المقال',0]],
+web:[['title','عنوان صفحة الويب أو المقال',1],['container','اسم الموقع الإلكتروني',1],['publisher','الجهة الناشرة إذا اختلفت عن الموقع والمؤلف',0],['date','تاريخ النشر (يمكن كتابة 2024-05-12)',0],['url','رابط الصفحة المباشر',0],['accessed','تاريخ الاطلاع إن لزم',0]],
+chapter:[['title','عنوان الفصل',1],['container','عنوان الكتاب الذي يضم الفصل',1],['editor','اسم محرر الكتاب إن وجد',0],['publisher','دار النشر',0],['year','سنة النشر',0],['pages','صفحات الفصل',0],['url','الرابط أو DOI إن وجد',0]],
+report:[['title','عنوان التقرير أو الدليل',1],['publisher','الجهة الناشرة',0],['year','سنة النشر',0],['reportNo','رقم التقرير إن وجد',0],['url','الرابط المباشر للتقرير إن وجد',0]],
+thesis:[['title','عنوان الرسالة أو الأطروحة',1],['year','سنة الإجازة أو النشر',0],['university','اسم الجامعة',1],['degree','نوع الرسالة (ماجستير / دكتوراه)',0],['url','رابط المستودع الجامعي إن وجد',0]],
+newspaper:[['title','عنوان المقال الصحفي',1],['container','اسم الصحيفة',1],['date','تاريخ النشر',0],['pages','الصفحة أو الصفحات إن وجدت',0],['url','الرابط في النسخة الإلكترونية إن وجد',0]],
+video:[['title','عنوان الفيديو',1],['container','المنصة أو الموقع (مثل YouTube)',1],['uploader','ناشر الفيديو أو اسم القناة إن كان مختلفا',0],['date','تاريخ النشر',0],['url','رابط الفيديو',0]],
+lecture:[['title','عنوان المحاضرة أو الورقة',1],['container','اسم المؤتمر أو المناسبة',0],['date','تاريخ المحاضرة',0],['venue','مكان انعقاد المناسبة',0],['city','المدينة إن وجدت',0],['url','رابط المادة إن وجد',0]]
+};
+const info={
+ar:{publisher:'الناشر',date:'تاريخ النشر',missingTitle:'أدخل عنوان المصدر.',title:'العنوان',container:'اسم الوعاء / المجلة / الموقع',et:'وآخرون',and:'و',vol:'مج.',no:'ع.',pp:'ص ص.',p:'ص.',edited:'تحرير',translated:'ترجمة',edition:'الطبعة',uploaded:'نشره',accessed:'تاريخ الاطلاع',masters:'رسالة ماجستير',phd:'أطروحة دكتوراه'},
+en:{publisher:'Publisher',date:'Publication date',missingTitle:'Enter a source title.',title:'Title',container:'Container / journal / website',et:'et al.',and:'and',vol:'vol.',no:'no.',pp:'pp.',p:'p.',edited:'edited by',translated:'translated by',edition:'ed.',uploaded:'uploaded by',accessed:'Accessed',masters:'Master’s thesis',phd:'PhD dissertation'}};
+const dateAr=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+const dateEn=['Jan.','Feb.','Mar.','Apr.','May','June','July','Aug.','Sept.','Oct.','Nov.','Dec.'];
+let saved=[];let generated=null;let lastCorrection=null;let editingId=null;
+try{saved=JSON.parse(localStorage.getItem('mla-generator-qrta-v1')||'[]');if(!Array.isArray(saved))saved=[]}catch(e){saved=[]}
+const store=()=>{try{localStorage.setItem('mla-generator-qrta-v1',JSON.stringify(saved))}catch(e){alert('تعذر حفظ البيانات في المتصفح. يمكنك نسخ المرجع مباشرة.')}};
+const read=id=>clean($(id)?.value||'');
+function dateFormat(raw,lang){let s=clean(raw);let m=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);if(m){let n=Number(m[2]);if(n>=1&&n<=12)return lang==='ar'?`${Number(m[3])} ${dateAr[n-1]} ${m[1]}`:`${Number(m[3])} ${dateEn[n-1]} ${m[1]}`;}return s}
+function authorMeta(d){const i=info[d.lang];let lead='',prefix='',warnings=[];if(d.mode==='none'){return {lead:'',prefix:'',warnings}}if(d.mode==='org'){
+ let org=d.org;if(!org){warnings.push('أدخل اسم المؤسسة المؤلفة، أو اختر عدم وجود مؤلف إن كان ذلك هو الواقع.');return{lead:'',prefix:'',warnings}}
+ lead=org;prefix=(org.toLocaleLowerCase()===clean(d.publisher).toLocaleLowerCase()||org.toLocaleLowerCase()===clean(d.container).toLocaleLowerCase())?'':end(esc(org))+' ';return{lead,prefix,warnings}
+}
+let a=clean(d.last1),b=clean(d.first1);if(!a){warnings.push('لم يُدخل اسم عائلة المؤلف الأول؛ راجع بطاقة المصدر.');return{lead:'',prefix:'',warnings}}
+let n=d.lang==='ar'?`${a}${b?'، '+b:''}`:`${a}${b?', '+b:''}`;
+if(!b)warnings.push('أدخل الاسم الأول للمؤلف الأول عند توفره.');
+if(d.mode==='two'){
+ let sec=[clean(d.first2),clean(d.last2)].filter(Boolean).join(' ');
+ if(!sec)warnings.push('المصدر محدد بأنه لمؤلفين، لكن اسم المؤلف الثاني غير مكتمل.');
+ n+=d.lang==='ar'?`، و${sec}`:`, and ${sec}`;lead=d.lang==='ar'?`${a} و${clean(d.last2)}`:`${a} and ${clean(d.last2)}`;
+}else if(d.mode==='many'){n+=d.lang==='ar'?'، وآخرون':', et al.';lead=`${a} ${i.et}`;}else lead=a;
+return{lead,prefix:end(esc(n))+' ',warnings};}
+function postlabel(s,lang){return lang==='ar'?s.split(/\s/).filter(Boolean).join(' '):s}
+function locator(d){let link=d.url; if(!link)return'';if(/^10\.\d{4,9}\//.test(link))link='https://doi.org/'+link;else if(/^doi:\s*10\./i.test(link))link='https://doi.org/'+link.replace(/^doi:\s*/i,'');else if(/^doi\.org\//i.test(link))link='https://'+link;return esc(link)}
+function pageRange(raw,lang,oneOnly=false){let p=clean(raw);if(!p)return'';let mult=/[–—-]|,/.test(p);let sym=oneOnly&&!mult?'':mult?info[lang].pp:info[lang].p;return`${sym} ${esc(p)}`.trim()}
+function edition(v,lang){if(!v)return'';let raw=clean(v);if(lang==='ar')return`${info.ar.edition} ${esc(raw)}`;if(/\bed\.?$/i.test(raw))return esc(raw);if(/^\d+$/.test(raw)){const n=Number(raw),tail=n%100>=11&&n%100<=13?'th':n%10===1?'st':n%10===2?'nd':n%10===3?'rd':'th';return `${raw}${tail} ed.`}return `${esc(raw)} ed.`;}
+function joined(x){return x.filter(Boolean).join(', ')}
+function endPeriod(str){return /[.!؟?]$/.test(str)?str:str+'.'}
+function buildCitation(d){const i=info[d.lang],a=authorMeta(d),warn=[...a.warnings],loc=locator(d);const prefix=a.prefix;const join=xs=>xs.filter(Boolean).join(d.lang==='ar'?'، ':', ');let html='';
+if(!d.title){return{html:'',plain:'',inline:'',warnings:[i.missingTitle]}}
+const shortTitle=d.title.split(/\s+/).slice(0,4).join(' ')+(d.title.split(/\s+/).length>4?'…':'');
+let work=qtitle(d.title),whole=italic(d.title),cont=d.container?italic(d.container):'';
+if(['book','report','thesis'].includes(d.type))work=whole;
+function pos(t){return t?esc(t):''};
+if(d.type==='book'){
+ const more=[d.translator?`${i.translated} ${pos(d.translator)}`:'',edition(d.edition,d.lang),pos(d.publisher),pos(d.year)];
+ html=prefix+whole+'. '+(join(more)?join(more)+'.':'');
+ if(d.database||loc)html+=' '+(join([d.database?italic(d.database):'',loc])||'')+'.';
+ if(!d.publisher)warn.push('راجع اسم الناشر في بيانات الكتاب، وأدرجه إن كان متاحا.');if(!d.year)warn.push('لم تدخل سنة النشر؛ تحقق من بيانات الكتاب.');
+}else if(d.type==='journal'){
+ let middle=join([cont,d.volume?`${i.vol} ${esc(d.volume)}`:'',d.issue?`${i.no} ${esc(d.issue)}`:'',pos(d.year),pageRange(d.pages,d.lang,true)]);
+ html=prefix+work+' '+endPeriod(middle);
+ if(d.database||loc)html+=' '+join([d.database?italic(d.database):'',loc])+'.';
+ if(!d.container)warn.push('اسم المجلة العلمية من البيانات الأساسية التي تحتاج استكمالا.');
+ if(!d.year)warn.push('راجع سنة نشر المقال.');
+ if(!d.pages)warn.push('إذا كان للمقال مدى صفحات، أدرجه في قائمة المراجع.');
+}else if(d.type==='web'){
+ let pub=d.publisher&&d.publisher!==d.container&&d.publisher!==d.org?pos(d.publisher):'';
+ let middle=join([cont,pub,dateFormat(d.date,d.lang),loc]);
+ html=prefix+work+' '+endPeriod(middle);
+ if(d.accessed)html+=' '+`${i.accessed} ${esc(dateFormat(d.accessed,d.lang))}.`;
+ if(!d.container)warn.push('راجع اسم الموقع الذي يحتوي الصفحة.');if(!loc)warn.push('رابط الصفحة المباشر مهم في توثيق صفحات الويب.');
+ if(!d.date&&!d.accessed)warn.push('لم يظهر تاريخ نشر أو اطلاع؛ ابحث عن تاريخ النشر أولا، ويمكن ذكر تاريخ الاطلاع عند الحاجة.');
+}else if(d.type==='chapter'){
+ let middle=join([cont,d.editor?`${i.edited} ${pos(d.editor)}`:'',pos(d.publisher),pos(d.year),pageRange(d.pages,d.lang,true),loc]);
+ html=prefix+work+' '+endPeriod(middle);
+ if(!d.container)warn.push('أضف عنوان الكتاب الذي يحتوي الفصل.');
+ if(!d.pages)warn.push('تحقق من مدى صفحات الفصل إن كانت متاحة.');
+}else if(d.type==='report'){
+ let middle=join([pos(d.reportNo),pos(d.publisher),pos(d.year),loc]);html=prefix+whole+'. '+(middle?middle+'.':'');
+ if(!d.publisher&&!d.org)warn.push('حدد المؤسسة الناشرة إن كانت متاحة.');
+}else if(d.type==='thesis'){
+ let deg=d.degree;
+ if(/ماجستير/.test(deg))deg=i.masters;else if(/دكتوراه/.test(deg))deg=i.phd;
+ let yearPart=d.year?esc(d.year)+'. ':'';
+ let middle=join([pos(d.university),pos(deg),loc]);
+ html=prefix+whole+'. '+yearPart+(middle?middle+'.':'');
+ if(!d.university)warn.push('اسم الجامعة مطلوب لتحديد مصدر الرسالة الجامعية.');
+}else if(d.type==='newspaper'){
+ let mid=join([cont,dateFormat(d.date,d.lang),pageRange(d.pages,d.lang,false),loc]);html=prefix+work+' '+endPeriod(mid);
+ if(!d.container)warn.push('أدخل اسم الصحيفة.');
+}else if(d.type==='video'){
+ let mid=join([cont,d.uploader?`${i.uploaded} ${pos(d.uploader)}`:'',dateFormat(d.date,d.lang),loc]);html=prefix+work+' '+endPeriod(mid);
+ if(!d.container)warn.push('أدخل اسم المنصة أو موقع الفيديو.');
+}else if(d.type==='lecture'){
+ let mid=join([cont,dateFormat(d.date,d.lang),pos(d.venue),pos(d.city),loc]);html=prefix+work+' '+endPeriod(mid);
+ if(!d.container)warn.push('أدخل اسم المناسبة أو المؤتمر إن وجد.');
+}
+html=html.replace(/\s+/g,' ').replace(/\s+\./g,'.').trim();
+let noAuthor=!a.prefix;let isWhole=['book','report','thesis'].includes(d.type);let lead=a.lead&&!noAuthor?a.lead:(isWhole?shortTitle:`“${shortTitle}”`);
+let inline=`(${lead}${d.citedPage?' '+clean(d.citedPage):''})`;
+let inlineHtml=noAuthor&&isWhole?`(<em>${esc(shortTitle)}</em>${d.citedPage?' '+esc(clean(d.citedPage)):''})`:esc(inline);
+if(d.lang==='ar')inline=western(inline);
+if(d.type==='journal'&&d.url&&/^10\.\d/.test(d.url))warn.push('تم تحويل DOI إلى رابط https://doi.org/ تلقائيا.');
+if(d.url&&!(loc.startsWith('https://')||loc.startsWith('http://'))&&!/www\./.test(loc))warn.push('راجع صياغة الرابط أو DOI؛ يجب أن يدل على المصدر الصحيح.');
+return{html,plain:htmlText(html),inline,inlineHtml,warnings:warn.filter(Boolean)};
+}
+function loadDynamic(reset=false){let type=$('type').value,lang=$('language').value,defs=layout[type];let old={};if(!reset)document.querySelectorAll('#dynamicFields input').forEach(i=>old[i.id.replace('f_','')]=i.value);$('dynamicFields').innerHTML=defs.map(([key,label,required])=>`<div class="field ${key==='title'||key==='container'||key==='url'?'span2':''}"><label for="f_${key}">${label}${required?' <span style="color:var(--red)">*</span>':''}</label><input id="f_${key}" data-key="${key}" placeholder="${key==='date'?'مثال: 2024-05-12':key==='url'?'https://doi.org/... أو https://...':''}" value="${esc(old[key]??'')}"></div>`).join('');if(lang==='en'){
+ const translated={title:'Title of source',publisher:'Publisher',year:'Publication year',date:'Publication date',container:'Journal / website / container title',volume:'Volume',issue:'Issue',pages:'Page range',editor:'Editor',edition:'Edition',translator:'Translator',database:'Database',accessed:'Access date',university:'University',degree:'Degree',uploader:'Uploader',venue:'Venue',city:'City',reportNo:'Report number',url:'URL or DOI'};
+ document.querySelectorAll('#dynamicFields label').forEach(label=>{let k=label.htmlFor.replace('f_','');label.innerHTML=(translated[k]||label.textContent)+((defs.find(f=>f[0]===k)||[])[2]?' <span style="color:var(--red)">*</span>':'')});
+}}
+function authorFields(){let m=$('authorMode').value;document.querySelectorAll('[data-author=person]').forEach(x=>x.classList.toggle('hidden',m==='org'||m==='none'));document.querySelectorAll('[data-author=second]').forEach(x=>x.classList.toggle('hidden',m!=='two'));document.querySelectorAll('[data-author=org]').forEach(x=>x.classList.toggle('hidden',m!=='org'));
+ $('authorHint').textContent=m==='many'?'اكتب بيانات المؤلف الأول؛ ستظهر عبارة «وآخرون» أو et al. في التوثيق.':m==='two'?'اكتب اسمَي المؤلفين.':m==='org'?'إذا كانت المؤسسة هي المؤلف والناشر نفسه، يطبق المولد قاعدة حذف تكرار المؤلف.':m==='none'?'يبدأ المرجع بعنوان المصدر عند عدم وجود مؤلف معروف.':'اكتب اسم العائلة والاسم الأول في حقلين مستقلين.';
+}
+function dataFromForm(){let d={lang:$('language').value,type:$('type').value,mode:$('authorMode').value,first1:read('first1'),last1:read('last1'),first2:read('first2'),last2:read('last2'),org:read('org'),citedPage:read('citedPage')};document.querySelectorAll('#dynamicFields input').forEach(x=>d[x.dataset.key]=clean(x.value));return d;}
+function showGenerated(){let d=dataFromForm(),out=buildCitation(d);if(!d.title){$('refOutput').textContent='يرجى إدخال عنوان المصدر أولا.';$('inlineOutput').textContent='—';$('genIssues').classList.remove('hidden');$('genIssues').textContent='عنوان المصدر مطلوب لإنشاء مرجع صالح.';generated=null;setEnabled(false);return}
+ generated={d,out};$('refOutput').innerHTML=out.html;$('refOutput').dir=d.lang==='ar'?'rtl':'ltr';$('inlineOutput').innerHTML=out.inlineHtml;$('inlineOutput').dir=d.lang==='ar'?'rtl':'ltr';
+ $('genIssues').classList.toggle('hidden',!out.warnings.length);$('genIssues').innerHTML=out.warnings.length?'<b>تنبيهات قبل اعتماد المرجع:</b><ul class="checklist">'+out.warnings.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>':'';
+ setEnabled(true);
+}
+function setEnabled(on){for(let k of ['copyRef','copyRefText','copyInline','addEntry'])$(k).disabled=!on;}
+function setTab(t){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==`view-${t}`));document.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===t)));if(t==='list')renderList();if(t==='check')populateCompare();window.scrollTo({top:0,behavior:'smooth'})}
+async function copyPlain(str){try{await navigator.clipboard.writeText(str)}catch(e){let t=document.createElement('textarea');t.value=str;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}toast('تم النسخ')}
+async function copyHTML(html){let plain=htmlText(html);try{if(navigator.clipboard.write&&window.ClipboardItem){await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([`<div>${html}</div>`],{type:'text/html'}),'text/plain':new Blob([plain],{type:'text/plain'})})]);toast('تم نسخ التوثيق منسقا');return}}catch(e){}const el=document.createElement('div');el.innerHTML=html;el.contentEditable='true';el.style.cssText='position:fixed;left:-9999px;';document.body.appendChild(el);let sel=getSelection(),r=document.createRange();r.selectNodeContents(el);sel.removeAllRanges();sel.addRange(r);try{document.execCommand('copy');toast('تم النسخ')}catch(e){await copyPlain(plain)}sel.removeAllRanges();el.remove()}
+function toast(msg){let t=$('toast');if(!t){t=document.createElement('div');t.id='toast';t.style.cssText='position:fixed;bottom:25px;left:20px;background:#2f5539;color:white;border-radius:12px;padding:11px 19px;z-index:9999;box-shadow:0 7px 16px #0002';document.body.appendChild(t)}t.textContent=msg;t.hidden=false;clearTimeout(t._timeout);t._timeout=setTimeout(()=>t.hidden=true,2100)}
+function newID(){return 'src_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8)}
+function addToList(){if(!generated)return;let entry={id:editingId||newID(),data:structuredClone(generated.d)};let at=saved.findIndex(x=>x.id===entry.id);if(at>=0)saved[at]=entry;else saved.push(entry);editingId=null;store();renderList();toast('حُفظ المرجع في القائمة')}
+function renderList(){ $('count').textContent=`(${saved.length})`;let el=$('listOutput');if(!saved.length){el.innerHTML='<div class="subtle">لا توجد مراجع محفوظة حتى الآن. استخدم «إنشاء توثيق» ثم «إضافة إلى قائمة المراجع».</div>';return}
+ let groups=[['ar','المصادر العربية'],['en','English sources']];el.innerHTML=groups.map(([lang,title])=>{let items=saved.filter(x=>x.data.lang===lang).sort((a,b)=>{
+ let a1=authorMeta(a.data).lead||a.data.title,b1=authorMeta(b.data).lead||b.data.title;return a1.localeCompare(b1,lang,{sensitivity:'base'})});if(!items.length)return'';return `<h3>${title}</h3>${items.map(x=>{let result=buildCitation(x.data);return`<article class="entry" dir="${lang==='ar'?'rtl':'ltr'}"><header><span class="mini">${nameList.ar[x.data.type]}</span><span class="mini">${lang==='ar'?'عربي':'English'}</span></header><div class="citation">${result.html}</div><div class="mini">داخل النص: ${result.inlineHtml}</div><div class="btnrow noprint" dir="rtl"><button class="btn secondary" data-action="copy" data-id="${x.id}">نسخ</button><button class="btn outline" data-action="edit" data-id="${x.id}">تعديل</button><button class="btn outline" data-action="check" data-id="${x.id}">فحص</button><button class="btn danger" data-action="delete" data-id="${x.id}">حذف</button></div></article>`}).join('')}`}).join('');populateCompare();}
+function dataToForm(d){$('language').value=d.lang;$('type').value=d.type;$('authorMode').value=d.mode;loadDynamic();authorFields();for(const k of ['first1','last1','first2','last2','org','citedPage'])$(k).value=d[k]||'';document.querySelectorAll('#dynamicFields input').forEach(x=>x.value=d[x.dataset.key]||'');showGenerated();}
+function listActions(e){let b=e.target.closest('[data-action]');if(!b)return;let x=saved.find(z=>z.id===b.dataset.id);if(!x)return;let action=b.dataset.action;if(action==='copy'){copyHTML(buildCitation(x.data).html);return}if(action==='edit'){editingId=x.id;dataToForm(x.data);setTab('create');toast('افتح الحقول وعدلها ثم احفظ المرجع');return}if(action==='delete'){if(confirm('هل تريد حذف هذا المرجع من القائمة المحلية؟')){saved=saved.filter(y=>y.id!==x.id);store();renderList()}return}if(action==='check'){setTab('check');$('checkLang').value=x.data.lang;$('checkType').value=x.data.type;$('checkText').value=buildCitation(x.data).plain;$('compareId').value=x.id;runCheck();}}
+function populateCompare(){let current=$('compareId').value;$('compareId').innerHTML='<option value="">فحص شكلي عام دون مرجع مقارن</option>'+saved.map(x=>`<option value="${x.id}">${esc(x.data.title||'بدون عنوان')} — ${x.data.lang==='ar'?'عربي':'English'}</option>`).join('');if(saved.some(x=>x.id===current))$('compareId').value=current;}
+function cleanComparable(s){return western(htmlText(String(s)).replace(/[“”„«»]/g,'"').replace(/\s+/g,' ').replace(/\s+([,،.])/g,'$1').trim()).replace(/[.]+$/,'').toLowerCase()}
+function checking(){let raw=$('checkText').value.trim(),lang=$('checkLang').value,kind=$('checkKind').value,type=$('checkType').value,issues=[];if(!raw){$('checkStatus').textContent='يرجى لصق التوثيق المراد فحصه.';$('issuesBox').innerHTML='';$('corrected').textContent='—';$('copyCorrection').disabled=true;return}let text=western(raw).replace(/[ \t]+/g,' ').replace(/\s*\n\s*/g,' '),formatted=esc(text),matched=false;
+const push=(severity,label,detail)=>issues.push({severity,label,detail});
+if(raw!==western(raw))push('alert','شكل الأرقام','استبدلت الأرقام العربية الشرقية ١٢٣ والأرقام الفارسية بأرقام 123 في التصحيح المقترح.');
+if(/et\.\s*al\./i.test(text)){text=text.replace(/et\.\s*al\./gi,'et al.');push('alert','صياغة المؤلفين المتعددين','الصيغة الصحيحة هي et al. دون نقطة بعد et.');}
+if(/\s&\s/.test(text)){text=text.replace(/\s&\s/g,lang==='ar'?' و ':' and ');push('alert','الربط بين المؤلفين','في MLA يستخدم and في الإنجليزية، والواو بالعربية، بدلا من & بين أسماء المؤلفين.');}
+if(kind==='inline'){
+ let m=text.match(/^\(([\s\S]+?)[,،]\s*((?:19|20)\d{2})\s*[,،]?\s*(?:(?:p|pp)\.\s*|ص\.?\s*)?(\d+(?:[-–]\d+)?)?\)$/i);
+ if(m){text=`(${m[1].trim()}${m[3]?' '+m[3]:''})`;push('alert','نمط APA داخل النص','أزلت سنة النشر والفواصل المحيطة بها؛ استشهاد MLA يعتمد عادة على المؤلف ورقم الصفحة.');}
+ if(/^\([^()]+\)$/.test(text)){
+ let z=text.slice(1,-1).replace(/\s*(?:[,،]\s*)?(?:p|pp)\.\s*(\d+)$/i,' $1').replace(/\s*(?:[,،]\s*)?ص\.?\s*(\d+)$/,' $1');text='('+z+')';
+ }
+ if(!/^\([^)]+\)$/.test(text))push('warning','شكل الاستشهاد','يُتوقع أن يظهر الاستشهاد بين قوسين في الحالات المعتادة؛ تحقق من سياقه داخل الجملة.');
+ if(/\(.*(?:19|20)\d{2}.*\)/.test(text))push('warning','ظهور السنة','تحقق من أن السنة ليست جزءا من عنوان العمل؛ تُستبعد سنوات النشر عادة من استشهاد MLA داخل النص.');
+}else{
+ if(/\(\s*(?:19|20)\d{2}\s*\)/.test(text))push('alert','ترتيب سنة النشر','السنة بين قوسين علامة شائعة لنمط APA؛ يلزم وضعها في موضعها وفق نوع المصدر. لا يمكن إعادة ترتيب العناصر تلقائيا دون معرفة بيانات المصدر.');
+ if(/\b(?:vol|volume)\.?\s*\d+\s*\(\d+\)/i.test(text)&&type==='journal')push('warning','المجلد والعدد','استخدم الفصل بين المجلد والعدد، مثل vol. 5, no. 2، بدلا من 5(2).');
+ if(/\b(?:Retrieved from|استرجع من)\b/i.test(text))push('warning','عبارات الاسترجاع','لا تستخدم صياغة APA مثل Retrieved from افتراضيا؛ راجع موضع الرابط في MLA.');
+ if(/\bdoi:\s*(10\.\d{4,9}\/\S+)/i.test(text)){text=text.replace(/\bdoi:\s*(10\.\d{4,9}\/\S+)/gi,(_,doi)=>'https://doi.org/'+doi.replace(/\.$/,''));push('alert','صياغة DOI','حُول رقم DOI إلى رابط مباشر https://doi.org/… مع الحفاظ على الرقم نفسه.');}
+ if(/\b(?:19|20)\d{2}\b/.test(text)===false)push('warning','سنة النشر','لم أتعرف على سنة نشر واضحة. إذا كان المصدر مؤرخا، أدرج السنة في موضعها المناسب.');
+ if(['journal','web','newspaper','chapter'].includes(type)&&!/[“”"«»]/.test(text))push('warning','عنوان المصدر القصير','راجع وضع عنوان المقال أو الصفحة أو الفصل بين علامتي تنصيص؛ لا يمكن تحديد بداية العنوان ونهايته من النص وحده.');
+ if(type==='journal'&&!/(?:vol\.|مج\.?)/i.test(text))push('warning','رقم المجلد','راجع رقم المجلد إذا كان منشورا في المجلة؛ قد لا يكون متاحا لجميع المراجع.');
+ if(type==='book'||type==='thesis'||type==='report')push('info','الخط المائل','تأكد أن عنوان العمل المستقل يظهر بخط مائل في Word؛ النص الملصق لا يكشف دائما التنسيق الأصلي.');
+ if(text&&!/[.!؟]$/.test(text)){text+='.';push('alert','نقطة النهاية','أضيفت نقطة إنهاء المرجع.');}
+}
+let compare=saved.find(x=>x.id===$('compareId').value);
+if(compare){let c=buildCitation(compare.data);if(compare.data.lang!==lang||compare.data.type!==type)push('warning','بيانات المقارنة','لغة المرجع أو نوعه لا يطابقان بيانات المصدر المحفوظ.');
+let expected=kind==='inline'?c.inline:c.plain;
+if(cleanComparable(raw)!==cleanComparable(expected))push('alert','عدم التطابق مع المصدر المحفوظ','يوجد اختلاف بين النص الملصق والمرجع الناتج من بيانات المصدر التي أدخلتها سابقا. استُخدم المرجع المولد كتَصحيح مقترح.');else push('info','التطابق الشكلي','النص يطابق الصيغة المولدة من البيانات المحفوظة بعد تجاهل فروق طفيفة في الفراغات وعلامات الاقتباس.');
+text=expected;formatted=kind==='inline'?c.inlineHtml:c.html;matched=true;
+}else formatted=esc(text);
+let hard=issues.filter(x=>x.severity==='alert').length,soft=issues.filter(x=>x.severity==='warning').length;
+let lbl=matched?'تمت المقارنة مع بيانات المصدر المحفوظة':hard?'توجد أخطاء شكلية قابلة للتصحيح':soft?'توجد نقاط تحتاج مراجعة':'لم تظهر أخطاء في الفحوص الشكلية المحدودة';
+$('checkStatus').className='notice '+(hard?'error':soft?'warn':'');$('checkStatus').textContent=lbl+'. لا يعني ذلك التحقق من صحة المصدر أو اكتمال بياناته.';
+$('issuesBox').innerHTML=issues.length?issues.map(x=>`<div class="issue"><strong><span class="state ${x.severity==='alert'?'alert':x.severity==='warning'?'warning':''}">${x.severity==='alert'?'تصحيح':x.severity==='warning'?'مراجعة':'معلومة'}</span> ${esc(x.label)}</strong><small>${esc(x.detail)}</small></div>`).join(''):'<div class="issue"><small>لم تكشف القواعد المتاحة أخطاء محددة. استكمل التحقق من البيانات والمائل والتطابق مع المصدر.</small></div>';
+$('corrected').innerHTML=formatted;$('corrected').dir=lang==='ar'?'rtl':'ltr';$('copyCorrection').disabled=false;lastCorrection={html:formatted,plain:text};
+}
+function downloadDoc(){if(!saved.length){alert('لا توجد مراجع لتنزيلها.');return}const entries=[...saved].sort((a,b)=>a.data.lang===b.data.lang?(authorMeta(a.data).lead||a.data.title).localeCompare(authorMeta(b.data).lead||b.data.title,a.data.lang):a.data.lang==='ar'?-1:1);
+let paragraphs=entries.map(x=>`<p lang="${x.data.lang}" dir="${x.data.lang==='ar'?'rtl':'ltr'}" style="margin:0 0 11pt 0;line-height:1.7;text-indent:-.4in;${x.data.lang==='ar'?'padding-right:.4in':'padding-left:.4in'}">${buildCitation(x.data).html}</p>`).join('');let doc=`<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>قائمة المراجع MLA</title></head><body style="font-family:Arial,serif;font-size:12pt"><h1 style="font-size:16pt">قائمة المراجع / Works Cited</h1>${paragraphs}</body></html>`;
+let blob=new Blob(['\ufeff'+doc],{type:'application/msword'});let link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='MLA_Works_Cited.doc';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1500)}
+function init(){loadDynamic();authorFields();$('language').addEventListener('change',()=>{loadDynamic();if(generated)showGenerated()});$('type').addEventListener('change',()=>{loadDynamic(true);setEnabled(false);generated=null;$('refOutput').textContent='أدخل بيانات نوع المصدر الجديد ثم اضغط «إنشاء التوثيق».';$('inlineOutput').textContent='—'});$('authorMode').addEventListener('change',authorFields);document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));$('generate').onclick=showGenerated;$('citedPage').addEventListener('input',()=>{if(generated)showGenerated()});$('clearForm').onclick=()=>{if(!confirm('تفريغ الحقول الحالية؟ المراجع المحفوظة لن تُحذف.'))return;document.querySelectorAll('#view-create input').forEach(x=>x.value='');$('type').value='book';$('language').value='ar';$('authorMode').value='one';loadDynamic();authorFields();$('refOutput').textContent='أدخل بيانات المصدر واضغط «إنشاء التوثيق».';$('inlineOutput').textContent='—';$('genIssues').classList.add('hidden');generated=null;editingId=null;setEnabled(false)};
+$('copyRef').onclick=()=>generated&&copyHTML(generated.out.html);$('copyRefText').onclick=()=>generated&&copyPlain(generated.out.plain);$('copyInline').onclick=()=>generated&&copyHTML(generated.out.inlineHtml);$('addEntry').onclick=addToList;$('listOutput').addEventListener('click',listActions);
+$('checkKind').onchange=()=>{$('checkTypeWrap').classList.toggle('hidden',$('checkKind').value==='inline');$('compareWrap').classList.remove('hidden')};$('runCheck').onclick=checking;$('loadCheckExample').onclick=()=>{$('checkKind').value='inline';$('checkKind').onchange();$('checkLang').value='en';$('checkText').value='(Brown, 2022, p. 45)';$('compareId').value='';checking()};$('copyCorrection').onclick=()=>lastCorrection&&copyHTML(lastCorrection.html);$('copyAll').onclick=()=>{if(!saved.length)return;let list=[...saved].sort((a,b)=>a.data.lang===b.data.lang?(authorMeta(a.data).lead||a.data.title).localeCompare(authorMeta(b.data).lead||b.data.title,a.data.lang):a.data.lang==='ar'?-1:1).map(x=>buildCitation(x.data).html).join('<p></p>');copyHTML(list)};$('downloadDoc').onclick=downloadDoc;$('printList').onclick=()=>window.print();renderList();}
+init();
+</script></body></html>
