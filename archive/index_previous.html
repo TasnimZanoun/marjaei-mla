@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#657d59">
+  <meta name="description" content="مرجعي: مساعد مجاني باللغة العربية لتنسيق الاستشهادات والمراجع وفق MLA 9.">
+  <title>مرجعي | مساعد توثيق MLA 9</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="مرجعي، الصفحة الرئيسية">
+        <span class="brandmark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M24 10C17 6 10 7 5 10v26c7-4 14-4 19 1V10Z" fill="#E9EBD8" stroke="#607855" stroke-width="2"/><path d="M24 10c7-4 14-3 19 0v26c-7-4-14-4-19 1V10Z" fill="#B7C79C" stroke="#607855" stroke-width="2"/><path d="M24 12v25" stroke="#607855" stroke-width="2"/><path d="m13 18 5 4 8-11" stroke="#9A7D42" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span><strong>مرجعي</strong><small>مساعد التوثيق الأكاديمي</small></span>
+      </a>
+      <nav class="navlinks" aria-label="التنقل">
+        <a href="#builder">وثق مصدرك</a>
+        <a href="#library">مكتبتي</a>
+        <a href="#guide">دليل الاستخدام</a>
+      </nav>
+      <span class="version">MLA <strong>9</strong></span>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero container" id="top">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot"></span> أداة تعليمية مجانية للمعلمين الطلبة</span>
+        <h1>كل مرجع، <em>في مكانه الصحيح.</em></h1>
+        <p>وثق مصادرك العربية والأجنبية، واحصل على توثيق داخل المتن وفي قائمة الأعمال المستشهد بها، مع تفسير القواعد والتنبيه إلى المعلومات الناقصة.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#builder">ابدأ التوثيق <span aria-hidden="true">↙</span></a>
+          <a class="btn ghost" href="#guide">كيف يعمل؟</a>
+        </div>
+        <div class="trust"><span>✓ دون تسجيل حساب</span><span>✓ يعمل على الهاتف</span><span>✓ لا يحتاج اشتراكا مدفوعا</span></div>
+      </div>
+      <aside class="hero-art" aria-hidden="true">
+        <span class="corner-star star-one">✦</span><span class="corner-star star-two">✧</span>
+        <div class="book-card"><div class="book-tag">WORKS CITED</div><div class="book-line long"></div><div class="book-line"></div><div class="book-line medium"></div><div class="citation-demo">Author. <i>Title.</i> Publisher, Year.</div><div class="book-seal">MLA 9</div></div>
+        <span class="art-quote">«التوثيق الدقيق امتداد للأمانة العلمية»</span>
+      </aside>
+    </section>
+
+    <section class="workspace-section" id="builder">
+      <div class="container">
+        <div class="section-heading"><div><span class="section-kicker">مساحة العمل</span><h2>أنشئ توثيقك الآن</h2><p>اختر نوع المصدر، وأدخل البيانات المتاحة، وسنرتبها وفق النموذج المناسب.</p></div><span class="step-pill">01 / وثق المصدر</span></div>
+        <div class="workspace">
+          <section class="panel editor-panel" aria-labelledby="form-heading">
+            <div class="panel-heading"><div><span class="panel-icon">✎</span><h3 id="form-heading">بيانات المصدر</h3></div><button class="text-button" id="exampleBtn" type="button">تجربة مثال جاهز</button></div>
+            <label class="field-label" for="sourceType">نوع المصدر</label>
+            <select id="sourceType" class="input"></select>
+            <div class="field-hint">يمكنك تغيير النوع في أي وقت. لا تملأ إلا البيانات التي تتأكد منها.</div>
+            <form id="citationForm" novalidate>
+              <div id="dynamicFields" class="fields"></div>
+              <div class="form-actions"><button class="btn primary wide" type="submit">إنشاء التوثيق <span aria-hidden="true">←</span></button><button class="btn subtle" id="resetBtn" type="button">مسح الحقول</button></div>
+            </form>
+          </section>
+
+          <section class="panel results-panel" aria-labelledby="results-heading">
+            <div class="panel-heading"><div><span class="panel-icon">❝</span><h3 id="results-heading">نتيجة التوثيق</h3></div><span class="result-pill" id="resultState">في انتظار بياناتك</span></div>
+            <div id="emptyResults" class="empty-results"><div class="empty-symbol">“ ”</div><h4>مرجعك على وشك الاكتمال</h4><p>أدخل معلومات المصدر واضغط «إنشاء التوثيق» لتظهر النتيجة هنا.</p></div>
+            <div id="resultsContent" hidden>
+              <div class="result-block"><div class="result-header"><h4>في قائمة الأعمال المستشهد بها <span>Works Cited</span></h4><button class="mini-btn" type="button" id="copyWorks">نسخ</button></div><div class="citation-text" dir="auto" id="worksOutput"></div></div>
+              <div class="result-block"><div class="result-header"><h4>داخل المتن <span>In-text citation</span></h4><button class="mini-btn" type="button" id="copyIntext">نسخ</button></div><div class="citation-text short" dir="auto" id="intextOutput"></div></div>
+              <div id="warningsBox" class="warnings" hidden><strong>قبل اعتماد المرجع</strong><ul id="warningsList"></ul></div>
+              <div class="tip"><span aria-hidden="true">✦</span><p id="explanation"></p></div>
+              <div class="output-actions"><button id="saveBtn" class="btn secondary" type="button">＋ احفظ في مكتبتي</button><button id="copyBoth" class="btn subtle" type="button">نسخ النتيجتين</button></div>
+              <p class="quality-note">النتيجة مبنية على البيانات المدخلة، ولا تعني التحقق من صحة المصدر نفسه.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="container library-section" id="library">
+      <div class="section-heading"><div><span class="section-kicker">مساحتك الشخصية</span><h2>مكتبتي البحثية</h2><p>احفظ المراجع التي أنشأتها ورتبها للتصدير. تحفظ بياناتك في هذا المتصفح فقط.</p></div><span class="step-pill">02 / اجمع المراجع</span></div>
+      <div class="library-panel">
+        <div class="library-top"><div class="library-count"><span class="count-icon">▤</span><strong id="libraryCount">0</strong><span>مرجع محفوظ</span></div><div class="library-actions"><button id="exportBtn" class="btn secondary small" type="button">تصدير إلى Word</button><button id="copyLibrary" class="btn subtle small" type="button">نسخ المراجع</button><button id="clearLibrary" class="btn text-danger small" type="button">حذف الكل</button></div></div>
+        <div id="libraryEmpty" class="library-empty">لا توجد مراجع محفوظة بعد. أنشئ توثيقا واحفظه ليظهر هنا.</div>
+        <div id="libraryItems" class="library-items" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="guide-section" id="guide">
+      <div class="container"><div class="section-heading"><div><span class="section-kicker">تعلم أثناء العمل</span><h2>دليل سريع للتوثيق</h2><p>ثلاث قواعد أساسية تساعدك على قراءة المرجع وفهمه.</p></div><span class="step-pill">03 / تعلم القواعد</span></div>
+        <div class="guide-grid">
+          <article class="guide-card"><div class="guide-number">01</div><h3>داخل المتن: مؤلف وموضع</h3><p>غالبا نكتب اسم عائلة المؤلف ورقم الصفحة إن كانت موجودة. لا نضيف سنة النشر تلقائيا كما في APA.</p><div class="inline-example" dir="ltr">(Mantel 42)</div></article>
+          <article class="guide-card"><div class="guide-number">02</div><h3>عنوان المصدر والحاوية</h3><p>يوضع عنوان الكتاب المستقل مائلا، بينما يوضع عنوان المقال بين علامتي اقتباس، ثم يأتي اسم المجلة أو الموقع.</p><div class="inline-example" dir="ltr">“Article.” <i>Journal Title</i></div></article>
+          <article class="guide-card"><div class="guide-number">03</div><h3>البيانات الناقصة لا نخترعها</h3><p>عند غياب التاريخ أو المؤلف نراجع المصدر الأصلي، وقد نحذف العنصر غير المتوفر بدلا من اختراع سنة أو اسم.</p><div class="inline-example">تحقق ← وثق ← راجع</div></article>
+        </div>
+        <div class="guide-source"><span>المعيار المعتمد: <strong>MLA Handbook, 9th edition</strong></span><a href="https://style.mla.org/works-cited/citations-by-format/" target="_blank" rel="noopener noreferrer">الاطلاع على الأمثلة الرسمية ↗</a></div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container footer-content"><div class="brand footer-brand"><span class="brandmark mini" aria-hidden="true">✦</span><span><strong>مرجعي</strong><small>التوثيق خطوة نحو بحث موثوق</small></span></div><p>أداة تعليمية مستقلة تستند إلى إرشادات MLA 9. ليست بديلا عن مراجعة المصدر الأصلي أو متطلبات مؤسستك.</p><span>صنع لتمكين المعلمين الطلبة 🌿</span></div></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
